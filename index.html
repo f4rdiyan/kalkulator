@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator BPJS & Asuransi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .calculator {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        .result h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .result-item {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .total {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 18px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Kalkulator BPJS & Asuransi</h2>
+        
+        <div class="input-group">
+            <label for="bpjs">BPJS:</label>
+            <input type="number" id="bpjs" placeholder="Masukkan nilai BPJS (Rp)">
+        </div>
+        
+        <div class="input-group">
+            <label for="asuransi">Asuransi:</label>
+            <input type="number" id="asuransi" placeholder="Masukkan nilai Asuransi (Rp)">
+        </div>
+        
+        <div class="input-group">
+            <label for="umum">Umum:</label>
+            <input type="number" id="umum" placeholder="Masukkan nilai Umum (Rp)">
+        </div>
+        
+        <button onclick="hitung()">Hitung</button>
+        
+        <div class="result" id="result">
+            <h3>Hasil Perhitungan</h3>
+            <div class="result-item">
+                <span>BPJS (22%):</span>
+                <span id="hasil-bpjs">Rp 0</span>
+            </div>
+            <div class="result-item">
+                <span>Asuransi + Umum (40%):</span>
+                <span id="hasil-asuransi">Rp 0</span>
+            </div>
+            <div class="result-item total">
+                <span>Total:</span>
+                <span id="hasil-total">Rp 0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function hitung() {
+            // Ambil nilai input
+            const bpjs = parseFloat(document.getElementById('bpjs').value) || 0;
+            const asuransi = parseFloat(document.getElementById('asuransi').value) || 0;
+            const umum = parseFloat(document.getElementById('umum').value) || 0;
+            
+            // Hitung BPJS (22%)
+            const hasilBPJS = bpjs * 0.22;
+            
+            // Hitung Asuransi + Umum (40%)
+            const hasilAsuransi = (asuransi + umum) * 0.4;
+            
+            // Hitung Total
+            const total = hasilBPJS + hasilAsuransi;
+            
+            // Format ke Rupiah
+            const formatRupiah = (angka) => {
+                return 'Rp ' + angka.toLocaleString('id-ID');
+            };
+            
+            // Tampilkan hasil
+            document.getElementById('hasil-bpjs').textContent = formatRupiah(hasilBPJS);
+            document.getElementById('hasil-asuransi').textContent = formatRupiah(hasilAsuransi);
+            document.getElementById('hasil-total').textContent = formatRupiah(total);
+        }
+    </script>
+</body>
+</html>
