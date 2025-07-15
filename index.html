@@ -5,81 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkulator BPJS & Asuransi</title>
     <style>
+        :root {
+            --pastel-blue: #a7c5eb;
+            --pastel-green: #b8e0d2;
+            --pastel-peach: #f7c1bb;
+            --pastel-lavender: #e3d0ff;
+            --soft-text: #5a5a5a;
+            --white: #fff9f9;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            max-width: 450px;
-            margin: 20px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--white);
+            color: var(--soft-text);
+            line-height: 1.6;
             padding: 20px;
-            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+        
         .calculator {
-            background: white;
-            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-lavender));
+            border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
         }
+        
         h2 {
-            color: #2c3e50;
+            color: #5a5a5a;
             text-align: center;
             margin-bottom: 25px;
-            font-size: 22px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
+        
         .input-group {
             margin-bottom: 20px;
         }
+        
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            color: #34495e;
+            font-weight: 500;
+            color: #5a5a5a;
+            font-size: 0.95rem;
         }
+        
         input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
         }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--pastel-peach);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(247, 193, 187, 0.3);
+        }
+        
         button {
             width: 100%;
-            padding: 12px;
-            background-color: #3498db;
+            padding: 15px;
+            background: linear-gradient(to right, var(--pastel-peach), var(--pastel-lavender));
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
+        
         button:hover {
-            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
         .result {
             margin-top: 25px;
             padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            border-left: 4px solid #3498db;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            border-left: 5px solid var(--pastel-green);
         }
+        
         .result h3 {
             margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 1px solid #eee;
+            color: #5a5a5a;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             padding-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 500;
         }
+        
         .result-item {
-            margin: 10px 0;
+            margin: 12px 0;
             display: flex;
             justify-content: space-between;
+            font-size: 1rem;
         }
+        
         .total {
-            font-weight: bold;
-            color: #e74c3c;
-            font-size: 18px;
+            font-weight: 600;
+            color: #5a5a5a;
+            font-size: 1.1rem;
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px dashed #ccc;
+            border-top: 2px dashed rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .calculator {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+            }
+            
+            input, button {
+                padding: 12px;
+            }
         }
     </style>
 </head>
@@ -147,6 +223,11 @@
             document.getElementById('hasil-asuransi').textContent = formatRupiah(hasilAsuransi);
             document.getElementById('hasil-total').textContent = formatRupiah(total);
         }
+
+        // Auto-hitung saat input berubah
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', hitung);
+        });
     </script>
 </body>
 </html>
